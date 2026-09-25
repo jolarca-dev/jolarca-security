@@ -33,14 +33,64 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 
 ## 3. Incident Response Team
 
+### Current State: Single-Operator Reality
+
+**As of 2026-09-26, jolarca-dev is operated by a single individual (JourneyOfLife) who fills all incident response roles.**
+
 | Role | Name | Contact | Responsibilities |
 |------|------|---------|------------------|
 | **Incident Commander** | JourneyOfLife | security@jolarca.com | Overall coordination, decision authority |
-| **Technical Lead** | JourneyOfLife | (same) | Technical investigation, containment |
-| **Communications** | JourneyOfLife | (same) | Stakeholder updates, public comms |
-| **Legal Counsel** | TBD | legal@jolarca.com | Regulatory notification, liability |
+| **Technical Lead** | JourneyOfLife | security@jolarca.com | Technical investigation, containment |
+| **Communications** | JourneyOfLife | security@jolarca.com | Stakeholder updates, public comms |
+| **Legal Counsel** | TBD (external) | legal@jolarca.com | Regulatory notification, liability |
 
-**Note:** Currently single-operator. Roles will be assigned to separate individuals upon team growth.
+### Implications of Single-Operator Model
+
+**Risks:**
+- **Cognitive overload:** One person must simultaneously coordinate, investigate, contain, and communicate
+- **No peer review:** Decisions made under stress without second opinion
+- **Availability risk:** If the operator is unavailable, no one can respond
+- **Burnout risk:** Incident response is high-stress; no one to share the burden
+
+**Mitigations (current):**
+- ✅ Automated detection (Dependabot, Trivy, gitleaks) reduces manual monitoring burden
+- ✅ Runbooks provide step-by-step guidance to reduce decision fatigue
+- ✅ External legal counsel available for regulatory decisions
+- ✅ Post-incident reviews ensure lessons are captured
+
+**Mitigations (planned):**
+- ⏳ Enable 2FA to reduce credential compromise risk (D-18)
+- ⏳ Hire second operator to enable role separation (D-10 trigger)
+- ⏳ Establish on-call rotation when team grows
+
+### When to Separate Roles
+
+**Trigger events for hiring additional incident response personnel:**
+
+1. **Second operator onboarded** — Immediately separate Incident Commander and Technical Lead roles
+2. **P1 incident occurs** — Post-incident, prioritize hiring to prevent recurrence
+3. **Regulatory requirement** — If auditor or regulator requires role separation
+4. **Business growth** — When marketplace goes live and handles real transactions
+
+**Target state (post-hire):**
+```
+Incident Commander: [Person A] — coordinates, makes decisions
+Technical Lead:     [Person B] — investigates, contains
+Communications:     [Person A or C] — updates stakeholders
+Legal Counsel:      [External] — regulatory guidance
+```
+
+### Auditor Guidance
+
+**If an auditor questions the single-operator model:**
+
+1. **Acknowledge the limitation:** "Yes, we currently operate with a single incident responder."
+2. **Explain mitigations:** "We use automated detection, runbooks, and external legal counsel to reduce risk."
+3. **Show awareness:** "We've documented this as a known limitation in our risk register."
+4. **Demonstrate plan:** "We have clear triggers for when we'll separate roles (see above)."
+5. **Provide evidence:** Show this document, the risk register, and any post-incident reviews.
+
+**Key point:** Auditors accept single-operator models for small organizations **if** the risks are documented, mitigated, and there's a plan to separate roles when the organization grows.
 
 ---
 
