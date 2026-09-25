@@ -23,13 +23,13 @@
 
 **⚠️ DO NOT open a public GitHub issue for security vulnerabilities.**
 
-### Private Vulnerability Disclosure
+### How to Report
 
-GitHub's private vulnerability disclosure is enabled for all jolarca-dev repositories.
+**Primary method:** Email security@jolarca.com (PGP-encrypted preferred)
 
-**To report:** Go to affected repository → **Security** → **Report a vulnerability**
+**Alternative:** GitHub security advisories (when enabled — currently being configured)
 
-**Alternative:** security@jolarca.com (PGP-encrypted preferred)
+**Note:** GitHub private vulnerability reporting is being enabled across all jolarca-dev repositories. Until complete, use email as the primary contact.
 
 ### What to Include
 
