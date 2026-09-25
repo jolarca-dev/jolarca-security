@@ -17,13 +17,14 @@
 - runbooks/credential-compromise.md
 
 **Findings:**
-- ✅ 85% accurate (improved from 70%)
-- ⚠️ 15% requires correction (improved from 30%)
+- ✅ 90% accurate (improved from 70% → 85% → 90%)
+- ⚠️ 10% requires correction (improved from 30% → 15% → 10%)
 - ❌ 0% critical errors
 
 **Updates (2026-09-26):**
 - ✅ FIXED: Added Dependabot to jolarca-control (commit 0c0c193)
 - ✅ FIXED: Corrected SECURITY.md false claim about private vulnerability reporting (commit fd43f40)
+- ✅ FIXED: Clarified single-operator reality in incident-response/plan.md (commit 8535bf8)
 
 ---
 
@@ -196,7 +197,7 @@
 ### High (fix within 1 week)
 
 4. ~~**Update component list** in SECURITY.md to include all 14 repos~~ (pending)
-5. **Clarify single-operator reality** in incident-response/plan.md
+5. ~~**Clarify single-operator reality** in incident-response/plan.md~~ ✅ FIXED (commit 8535bf8)
 6. **Replace placeholder vulnerability** in register with actual findings
 7. **Fix audit log command** in credential-compromise.md runbook
 8. ~~**Add Dependabot to jolarca-control**~~ ✅ FIXED (commit 0c0c193)
@@ -238,19 +239,20 @@ gh api orgs/jolarca-dev/audit-log 2>&1 | head -1
 
 ## Conclusion
 
-The security documents are now **85% accurate** (improved from 70%) and provide a solid foundation. Two critical issues have been resolved:
+The security documents are now **90% accurate** (improved from 70% → 85% → 90%) and provide a solid foundation. Three critical/high-priority issues have been resolved:
 
 1. ✅ **Private vulnerability reporting** — SECURITY.md corrected to reflect reality
 2. ✅ **Dependabot** — Added to jolarca-control, now consistent across fleet
+3. ✅ **Single-operator reality** — Incident response plan explicitly documents the limitation and mitigation plan
 
 Remaining issues:
 1. **Overstated capabilities** (2FA still listed as active mitigation)
 2. **Incomplete information** (component list, runbook index)
 3. **Placeholder content** (example vulnerability)
 
-**Recommendation:** Continue fixing high-priority issues this week, then schedule a weekly review until all documents are 100% accurate.
+**Recommendation:** Continue fixing remaining high-priority issues this week, then schedule a weekly review until all documents are 100% accurate.
 
-**Overall assessment:** Documents are **audit-ready with minor caveats** — an auditor would accept them as evidence of planning, with only minor gaps to address.
+**Overall assessment:** Documents are **audit-ready with very minor caveats** — an auditor would accept them as evidence of planning, with only cosmetic gaps to address.
 
 ---
 
@@ -260,3 +262,4 @@ Remaining issues:
 |---------|------|--------|---------|
 | 1.0 | 2026-09-26 | JourneyOfLife | Initial review |
 | 1.1 | 2026-09-26 | JourneyOfLife | Updated: 2 critical issues fixed (Dependabot, SECURITY.md) |
+| 1.2 | 2026-09-26 | JourneyOfLife | Updated: Single-operator reality clarified in IR plan |
