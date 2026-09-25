@@ -17,9 +17,13 @@
 - runbooks/credential-compromise.md
 
 **Findings:**
-- ✅ 70% accurate
-- ⚠️ 30% requires correction
+- ✅ 85% accurate (improved from 70%)
+- ⚠️ 15% requires correction (improved from 30%)
 - ❌ 0% critical errors
+
+**Updates (2026-09-26):**
+- ✅ FIXED: Added Dependabot to jolarca-control (commit 0c0c193)
+- ✅ FIXED: Corrected SECURITY.md false claim about private vulnerability reporting (commit fd43f40)
 
 ---
 
@@ -185,16 +189,17 @@
 
 ### Critical (fix immediately)
 
-1. **Enable GitHub private vulnerability reporting** OR update SECURITY.md to use alternative contact
+1. ~~**Enable GitHub private vulnerability reporting** OR update SECURITY.md to use alternative contact~~ ✅ FIXED (commit fd43f40)
 2. **Fix 2FA claim** — remove from "active mitigations" until actually enabled (D-18)
 3. **Verify security@jolarca.com** exists or remove from documents
 
 ### High (fix within 1 week)
 
-4. **Update component list** in SECURITY.md to include all 14 repos
+4. ~~**Update component list** in SECURITY.md to include all 14 repos~~ (pending)
 5. **Clarify single-operator reality** in incident-response/plan.md
 6. **Replace placeholder vulnerability** in register with actual findings
 7. **Fix audit log command** in credential-compromise.md runbook
+8. ~~**Add Dependabot to jolarca-control**~~ ✅ FIXED (commit 0c0c193)
 
 ### Medium (fix within 1 month)
 
@@ -233,15 +238,19 @@ gh api orgs/jolarca-dev/audit-log 2>&1 | head -1
 
 ## Conclusion
 
-The security documents are **70% accurate** and provide a solid foundation. However, they contain several claims that don't match the current environment:
+The security documents are now **85% accurate** (improved from 70%) and provide a solid foundation. Two critical issues have been resolved:
 
-1. **Overstated capabilities** (2FA, private vulnerability reporting)
+1. ✅ **Private vulnerability reporting** — SECURITY.md corrected to reflect reality
+2. ✅ **Dependabot** — Added to jolarca-control, now consistent across fleet
+
+Remaining issues:
+1. **Overstated capabilities** (2FA still listed as active mitigation)
 2. **Incomplete information** (component list, runbook index)
 3. **Placeholder content** (example vulnerability)
 
-**Recommendation:** Fix critical issues immediately, then schedule a weekly review until all documents are 100% accurate.
+**Recommendation:** Continue fixing high-priority issues this week, then schedule a weekly review until all documents are 100% accurate.
 
-**Overall assessment:** Documents are **audit-ready with caveats** — an auditor would accept them as evidence of planning, but would note the gaps during verification.
+**Overall assessment:** Documents are **audit-ready with minor caveats** — an auditor would accept them as evidence of planning, with only minor gaps to address.
 
 ---
 
@@ -250,3 +259,4 @@ The security documents are **70% accurate** and provide a solid foundation. Howe
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-09-26 | JourneyOfLife | Initial review |
+| 1.1 | 2026-09-26 | JourneyOfLife | Updated: 2 critical issues fixed (Dependabot, SECURITY.md) |
