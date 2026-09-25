@@ -9,13 +9,35 @@
 
 ## Supported Versions
 
-| Component | Version | Support Status |
-|-----------|---------|----------------|
-| jolarca (platform) | Latest main branch | ✅ Active |
-| jolarca-infrastructure | Latest main branch | ✅ Active |
-| All other repos | Latest main branch | ✅ Active |
+The jolarca-dev marketplace organization consists of 14 repositories, all receiving security updates:
 
-**Policy:** Security patches are applied immediately upon discovery.
+### Core Platform (Active)
+| Repository | Purpose | Support Status |
+|------------|---------|----------------|
+| `jolarca` | Marketplace platform (payments, KYC/AML, VAT OSS) | ✅ Active |
+| `jolarca-data` | Data pipelines, analytics, synthetic data | ✅ Active |
+| `jolarca-infrastructure` | Terraform IaC, hosting, networking | ✅ Active |
+
+### Governance & Compliance (Active)
+| Repository | Purpose | Support Status |
+|------------|---------|----------------|
+| `jolarca-control` | Governance control plane (Terraform, policy) | ✅ Active |
+| `jolarca-compliance` | RoPA, vendor assessments, audit evidence | ✅ Active |
+| `jolarca-legal` | Contracts, DPAs, legal registers | ✅ Active |
+| `jolarca-security` | Security policies, incident response, threat models | ✅ Active |
+
+### Planned Components (Initialized, Not Yet Active)
+| Repository | Purpose | Support Status |
+|------------|---------|----------------|
+| `jolarca-identity` | Identity and access management | ⏳ Planned |
+| `jolarca-observability` | Monitoring, logging, tracing | ⏳ Planned |
+| `jolarca-dr` | Disaster recovery, business continuity | ⏳ Planned |
+| `jolarca-consent` | GDPR consent management | ⏳ Planned |
+| `jolarca-docs` | Central documentation hub | ⏳ Planned |
+| `jolarca-runbooks` | Operational runbooks | ⏳ Planned |
+| `jolarca-vendor` | Vendor management, third-party risk | ⏳ Planned |
+
+**Policy:** Security patches are applied immediately upon discovery for all active repositories. Planned repositories will receive the same treatment once they become operational.
 
 ---
 
