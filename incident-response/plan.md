@@ -42,7 +42,7 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 | **Incident Commander** | JourneyOfLife | security@jolarca.com | Overall coordination, decision authority |
 | **Technical Lead** | JourneyOfLife | security@jolarca.com | Technical investigation, containment |
 | **Communications** | JourneyOfLife | security@jolarca.com | Stakeholder updates, public comms |
-| **Legal Counsel** | TBD (external) | legal@jolarca.com | Regulatory notification, liability |
+| **Legal Counsel** | ⏳ In Progress | [TBD — see policies/legal-counsel-contact.md](../policies/legal-counsel-contact.md) | Regulatory notification, liability |
 
 ### Implications of Single-Operator Model
 
@@ -62,6 +62,7 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 - ⏳ Enable 2FA to reduce credential compromise risk (D-18)
 - ⏳ Hire second operator to enable role separation (D-10 trigger)
 - ⏳ Establish on-call rotation when team grows
+- ⏳ **Engage legal counsel** — Engagement guide created (policies/legal-counsel-engagement.md), outreach pending
 
 ### When to Separate Roles
 
