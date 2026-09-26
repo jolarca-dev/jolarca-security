@@ -1,0 +1,36 @@
+# Lint workflow — validates YAML syntax and markdown style on PRs.
+
+name: lint
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  yaml-lint:
+    name: YAML syntax validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Validate YAML syntax
+        run: |
+          pip install yamllint
+          yamllint -d relaxed --no-warnings .
+
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: '**/*.md'
