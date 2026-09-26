@@ -1,7 +1,7 @@
 # Security Runbooks — jolarca-dev Marketplace
 
-**Effective Date:** 2026-09-26  
-**Owner:** JourneyOfLife (Security Officer)  
+**Effective Date:** 2026-09-26
+**Owner:** JourneyOfLife (Security Officer)
 **Review Cycle:** Quarterly or after incident
 
 ---
@@ -40,9 +40,9 @@ Step-by-step procedures for common security tasks and incident response scenario
 ```markdown
 # Runbook: [Title]
 
-**Purpose:** [What this runbook addresses]  
-**Trigger:** [When to use this runbook]  
-**Owner:** [Who executes this runbook]  
+**Purpose:** [What this runbook addresses]
+**Trigger:** [When to use this runbook]
+**Owner:** [Who executes this runbook]
 **Estimated time:** [How long it takes]
 
 ## Prerequisites

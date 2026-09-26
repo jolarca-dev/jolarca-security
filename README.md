@@ -96,8 +96,8 @@ All jolarca-dev repositories enforce:
 
 ## Contact
 
-**Security Team:** security@jolarca.com  
-**Security Officer:** JourneyOfLife  
+**Security Team:** security@jolarca.com
+**Security Officer:** JourneyOfLife
 **Incident Hotline:** security@jolarca.com (P1/P2 incidents)
 
 ---

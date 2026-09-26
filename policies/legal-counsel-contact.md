@@ -1,28 +1,28 @@
 # Legal Counsel Contact — jolarca-dev Marketplace
 
-**Status:** ⏳ In Progress (engagement guide created, outreach pending)  
-**Last Updated:** 2026-09-26  
+**Status:** ⏳ In Progress (engagement guide created, outreach pending)
+**Last Updated:** 2026-09-26
 **Owner:** JourneyOfLife
 
 ---
 
 ## Primary Contact
 
-**Firm Name:** [TBD]  
-**Lawyer Name:** [TBD]  
-**Title:** [TBD]  
-**Email:** [TBD]  
-**Phone:** [TBD]  
+**Firm Name:** [TBD]
+**Lawyer Name:** [TBD]
+**Title:** [TBD]
+**Email:** [TBD]
+**Phone:** [TBD]
 **Availability:** [TBD — target: 2-hour response for P1 incidents]
 
 ---
 
 ## Engagement Details
 
-**Engagement Date:** [TBD]  
-**Engagement Type:** [TBD — retainer / per-incident / hourly]  
-**Hourly Rate:** [TBD]  
-**Retainer Fee:** [TBD — if applicable]  
+**Engagement Date:** [TBD]
+**Engagement Type:** [TBD — retainer / per-incident / hourly]
+**Hourly Rate:** [TBD]
+**Retainer Fee:** [TBD — if applicable]
 **Retainer Terms:** [TBD — if applicable]
 
 ---
@@ -141,9 +141,9 @@
 
 **If primary contact unavailable:**
 
-**Backup Firm:** [TBD]  
-**Backup Lawyer:** [TBD]  
-**Backup Email:** [TBD]  
+**Backup Firm:** [TBD]
+**Backup Lawyer:** [TBD]
+**Backup Email:** [TBD]
 **Backup Phone:** [TBD]
 
 ---

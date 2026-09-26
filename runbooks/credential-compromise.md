@@ -1,8 +1,8 @@
 # Runbook: Credential Compromise
 
-**Purpose:** Respond to compromised API keys, tokens, or passwords  
-**Trigger:** Suspicious activity, secret leak detected, or credible report  
-**Owner:** JourneyOfLife (Incident Commander)  
+**Purpose:** Respond to compromised API keys, tokens, or passwords
+**Trigger:** Suspicious activity, secret leak detected, or credible report
+**Owner:** JourneyOfLife (Incident Commander)
 **Estimated time:** 1–4 hours
 
 ---

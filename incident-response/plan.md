@@ -1,9 +1,9 @@
 # Incident Response Plan — jolarca-dev Marketplace
 
-**Effective Date:** 2026-09-26  
-**Version:** 1.0  
-**Owner:** JourneyOfLife (Incident Commander)  
-**Review Cycle:** Quarterly or after significant incident  
+**Effective Date:** 2026-09-26
+**Version:** 1.0
+**Owner:** JourneyOfLife (Incident Commander)
+**Review Cycle:** Quarterly or after significant incident
 **Compliance:** SOC 2 CC7.3–CC7.5, ISO 27001 A.5.24–A.5.28, PCI DSS Req 12.10
 
 ---
@@ -204,8 +204,8 @@ Legal Counsel:      [External] — regulatory guidance
 
 ### External Notification
 
-**GDPR (Art. 33):** If personal data breach → notify supervisory authority within **72 hours**  
-**PCI DSS:** If cardholder data compromised → notify payment brands immediately  
+**GDPR (Art. 33):** If personal data breach → notify supervisory authority within **72 hours**
+**PCI DSS:** If cardholder data compromised → notify payment brands immediately
 **Users:** If user data at risk → notify affected users without undue delay
 
 **Legal counsel** must approve all external communications.
@@ -217,9 +217,9 @@ Legal Counsel:      [External] — regulatory guidance
 ```markdown
 # Incident: [Title]
 
-**Date:** YYYY-MM-DD HH:MM UTC  
-**Severity:** P1/P2/P3/P4  
-**Status:** Open / Contained / Resolved / Closed  
+**Date:** YYYY-MM-DD HH:MM UTC
+**Severity:** P1/P2/P3/P4
+**Status:** Open / Contained / Resolved / Closed
 **Incident Commander:** [Name]
 
 ## Summary

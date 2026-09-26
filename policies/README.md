@@ -1,7 +1,7 @@
 # Security Policies — jolarca-dev Marketplace
 
-**Purpose:** Central repository for security policies, procedures, and governance documents  
-**Owner:** JourneyOfLife (Security Officer)  
+**Purpose:** Central repository for security policies, procedures, and governance documents
+**Owner:** JourneyOfLife (Security Officer)
 **Review Cycle:** Annual or after significant change
 
 ---

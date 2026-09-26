@@ -1,8 +1,8 @@
 # Security Policy — jolarca-dev Marketplace
 
-**Effective Date:** 2026-09-26  
-**Version:** 1.0  
-**Owner:** JourneyOfLife (Security Officer)  
+**Effective Date:** 2026-09-26
+**Version:** 1.0
+**Owner:** JourneyOfLife (Security Officer)
 **Review Cycle:** Annual or after significant incident
 
 ---
@@ -118,7 +118,7 @@ We will not take legal action against researchers who report in good faith, do n
 
 ## Contact
 
-**Security Team:** security@jolarca.com  
+**Security Team:** security@jolarca.com
 **Security Officer:** JourneyOfLife
 
 ---

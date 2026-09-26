@@ -1,7 +1,7 @@
 # Legal Counsel Engagement Guide — jolarca-dev Marketplace
 
-**Purpose:** Guide for engaging legal counsel for incident response and regulatory compliance  
-**Date:** 2026-09-26  
+**Purpose:** Guide for engaging legal counsel for incident response and regulatory compliance
+**Date:** 2026-09-26
 **Owner:** JourneyOfLife
 
 ---

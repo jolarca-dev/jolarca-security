@@ -1,9 +1,9 @@
 # Threat Model — jolarca-dev Marketplace
 
-**Effective Date:** 2026-09-26  
-**Version:** 1.0  
-**Owner:** JourneyOfLife (Security Officer)  
-**Review Cycle:** Quarterly or after significant change  
+**Effective Date:** 2026-09-26
+**Version:** 1.0
+**Owner:** JourneyOfLife (Security Officer)
+**Review Cycle:** Quarterly or after significant change
 **Methodology:** STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
 
 ---
@@ -110,8 +110,8 @@ User → jolarca (platform) → Payment Processor (Stripe)
 
 ### Scenario 1: Credential Stuffing → Admin Access → Data Breach
 
-**Likelihood:** Medium  
-**Impact:** Critical  
+**Likelihood:** Medium
+**Impact:** Critical
 **Kill chain:**
 1. Attacker obtains credentials from breach elsewhere
 2. Attempts login to jolarca admin panel
@@ -128,8 +128,8 @@ User → jolarca (platform) → Payment Processor (Stripe)
 
 ### Scenario 2: Dependency Poisoning → Supply Chain Attack
 
-**Likelihood:** Medium  
-**Impact:** High  
+**Likelihood:** Medium
+**Impact:** High
 **Kill chain:**
 1. Attacker publishes malicious package
 2. Developer adds dependency (or transitive dependency)
@@ -146,8 +146,8 @@ User → jolarca (platform) → Payment Processor (Stripe)
 
 ### Scenario 3: Public Repo → PII Exposure → GDPR Breach
 
-**Likelihood:** High (currently)  
-**Impact:** Critical  
+**Likelihood:** High (currently)
+**Impact:** Critical
 **Kill chain:**
 1. Repo classified confidential but set to public (D-01)
 2. Attacker discovers repo via GitHub search
