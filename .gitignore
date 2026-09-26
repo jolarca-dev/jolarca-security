@@ -39,8 +39,24 @@ Thumbs.db
 *.key
 *.pem
 *.p12
+*.pfx
+*.jks
+.env
+.env.*
+.env.local
+.env.production
 secrets/
 credentials/
+.secrets/
+
+# Secret scanning output
+*.sarif
+gitleaks-report*
+trivy-report*
+
+# Agent/tool local state
+.claude/
+.qoder/
 
 # Evidence (sensitive, access-controlled)
 # incident-response/evidence/
