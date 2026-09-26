@@ -1,0 +1,8 @@
+# CODEOWNERS — default owners for all files in the repository.
+# Replace team slugs with actual GitHub team slugs before enabling.
+
+# Default owners for everything
+*       @jolarca-dev/security-team
+
+# Markdown governance documents require compliance sign-off
+*.md    @jolarca-dev/security-team @jolarca-dev/compliance

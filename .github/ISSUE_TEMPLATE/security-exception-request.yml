@@ -1,0 +1,72 @@
+name: Security Exception Request
+description: Request a time-bounded exception to a security policy or control
+title: "[EXCEPTION]: "
+labels: ["exception", "security", "compliance"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request a temporary exception to an existing security
+        policy or control. All exceptions must have a documented justification,
+        compensating controls, and an expiry date.
+
+  - type: input
+    id: policy-reference
+    attributes:
+      label: Policy / Control Reference
+      description: Which policy or control is the exception for?
+      placeholder: "e.g., PCI DSS Req 6.3, Access Control Policy §3.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: Why is this exception needed? What business requirement does it serve?
+    validations:
+      required: true
+
+  - type: input
+    id: expiry-date
+    attributes:
+      label: Requested Expiry Date
+      description: "When should this exception be reviewed? (YYYY-MM-DD)"
+      placeholder: "2027-03-31"
+    validations:
+      required: true
+
+  - type: textarea
+    id: compensating-controls
+    attributes:
+      label: Compensating Controls
+      description: What mitigations are in place while this exception is active?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk-level
+    attributes:
+      label: Residual Risk Level (with compensating controls)
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: dropdown
+    id: compliance-impact
+    attributes:
+      label: Compliance Impact
+      description: Does this exception affect audit posture?
+      options:
+        - No compliance impact
+        - May affect PCI DSS compliance
+        - May affect GDPR compliance
+        - May affect SOC 2 compliance
+        - May affect ISO 27001 compliance
+        - Multiple frameworks affected
+    validations:
+      required: true
