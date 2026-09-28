@@ -1,0 +1,54 @@
+// markdownlint-cli2 rule policy for jolarca-security.
+//
+// Every non-default setting below carries a written justification, because a
+// disabled lint rule is an accepted deviation and auditors will ask why.
+// Verified against markdownlint-cli2 v0.22.1 (markdownlint v0.40.0).
+{
+  "config": {
+    "default": true,
+
+    // MD013 line-length — DISABLED (audit finding F-03)
+    // Governance prose and evidence tables routinely exceed 80 characters;
+    // 99 findings carried no defect signal. Hard-wrapping policy text damages
+    // readability and makes diff review of audit evidence harder. No effect on
+    // rendered output.
+    "MD013": false,
+
+    // MD060 table-column-style — DISABLED (audit finding F-03)
+    // Introduced in markdownlint v0.40, after these documents were written. It
+    // enforces pipe alignment/compactness and produced 274 purely cosmetic
+    // findings across compliance tables. Rewriting them would churn evidence
+    // documents for zero correctness gain.
+    "MD060": false,
+
+    // MD029 ol-prefix — DISABLED (audit finding F-03)
+    // Several index documents number list items continuously across sections
+    // (for example runbooks/README.md numbers runbooks 1-6 across three
+    // headings, and policies/README.md continues its policy catalogue at 3).
+    // CommonMark preserves the start value, so this renders correctly, and the
+    // automatic fix renumbered them to 1..n — which falsified cross-referenced
+    // item identifiers. Rule disabled; the fix was explicitly rejected.
+    "MD029": false,
+
+    // MD036 no-emphasis-as-heading — DISABLED (audit finding F-03)
+    // Documents in this repository use bold inline field labels such as
+    // "**Purpose:**" and "**Issue 1: ...**" as data labels, not as headings.
+    // Promoting them to headings would pollute the heading hierarchy and the
+    // generated table of contents of policy documents.
+    "MD036": false,
+
+    // MD024 no-duplicate-heading — RELAXED to siblings only
+    // Per-document review sections legitimately repeat headings such as
+    // "Verified Accurate" under different parent sections. Identical sibling
+    // headings remain an error.
+    "MD024": {
+      "siblings_only": true
+    }
+  },
+
+  "ignores": [
+    ".git/**",
+    ".venv/**",
+    "node_modules/**"
+  ]
+}

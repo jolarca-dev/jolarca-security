@@ -1,14 +1,25 @@
-# Lint workflow — validates YAML syntax and markdown style on PRs.
+# Required status checks for jolarca-security: YAML syntax, Markdown policy,
+# and the policy-as-code test suite in tests/.
+#
+# Design note (audit finding F-02):
+#   This workflow previously triggered only on pull_request. Because the first
+#   14 commits were pushed straight to main, it never executed once — the
+#   repository had no working status check for branch protection to gate on.
+#   A push trigger is now included, and tooling is installed inside an isolated
+#   virtualenv because ubuntu-24.04 runners enforce PEP 668
+#   (externally-managed-environment), which makes a bare `pip install` fail.
 
 name: lint
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
+# Least privilege: linting and tests only read repository contents.
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
   yaml-lint:
@@ -16,21 +27,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Install yamllint in an isolated venv
+        run: |
+          set -euo pipefail
+          python3 -m venv /tmp/lintenv
+          /tmp/lintenv/bin/pip install --quiet --upgrade pip
+          /tmp/lintenv/bin/pip install --quiet yamllint
+          /tmp/lintenv/bin/yamllint --version
 
       - name: Validate YAML syntax
-        run: |
-          pip install yamllint
-          yamllint -d relaxed --no-warnings .
+        run: /tmp/lintenv/bin/yamllint -d relaxed --no-warnings .
 
   markdown-lint:
     name: Markdown lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Run markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v20
+        # Rule policy lives in .markdownlint-cli2.jsonc, where every non-default
+        # setting carries a written justification.
+        uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20
         with:
           globs: '**/*.md'
+
+  policy-tests:
+    name: Policy-as-code tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Install test dependencies in an isolated venv
+        run: |
+          set -euo pipefail
+          python3 -m venv /tmp/testenv
+          /tmp/testenv/bin/pip install --quiet --upgrade pip
+          /tmp/testenv/bin/pip install --quiet pytest pyyaml
+          /tmp/testenv/bin/pytest --version
+
+      - name: Run repository control tests
+        run: /tmp/testenv/bin/pytest -q
