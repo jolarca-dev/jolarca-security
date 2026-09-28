@@ -1,0 +1,269 @@
+# Control inventory — the single source of truth for what this repository
+# actually enforces.
+#
+# Every control asserted in README.md or SECURITY.md must appear here, and the
+# policy-as-code tests in tests/ assert the two directions:
+#
+#   * a control with status "gap" must NOT be claimed in the documents
+#   * a control with status "verified" or "compensating" MUST be claimed
+#
+# This exists because of audit findings F-08 and F-09: README.md and
+# SECURITY.md asserted Trivy, CodeQL and branch protection as active controls
+# while none of them exist in this repository, and REVIEW.md recorded the
+# opposite. A document that overstates controls is worse than one that admits
+# gaps — an auditor who catches one inflated claim discounts every other.
+#
+# status values:
+#   verified      — control is in place and was confirmed by the command shown
+#   compensating  — the intended control is unavailable; a substitute is in place
+#   gap           — control is absent; rationale and remediation are mandatory
+
+version: 1
+scope: "jolarca-dev/jolarca-security"
+verified_at: "2026-09-28"
+verified_by: "JourneyOfLife"
+plan: "GitHub Free (organisation)"
+
+# Marker convention used by the control tables in README.md.
+# tests/test_repository_controls.py enforces both directions: a marker may only
+# be used next to a control whose status here permits it, and every control
+# carrying a doc_claim must appear in the documentation with the right marker.
+claim_markers:
+  verified: "\u2705"
+  compensating: "\u26A0\uFE0F"
+  gap: "\u274C"
+
+controls:
+  - id: gitleaks-pre-commit
+    name: "gitleaks secret scanning (local pre-commit hook)"
+    status: verified
+    evidence: ".pre-commit-config.yaml"
+    verify: ".venv/bin/pre-commit run gitleaks --all-files"
+    doc_claim: "gitleaks secret scanning"
+
+  - id: gitleaks-ci
+    name: "gitleaks secret scanning (CI, full git history)"
+    status: verified
+    evidence: ".github/workflows/gitleaks.yml"
+    verify: "gh run list --workflow gitleaks.yml --limit 1"
+    doc_claim: "gitleaks secret scanning"
+
+  - id: lint-ci
+    name: "YAML and Markdown linting in CI"
+    status: verified
+    evidence: ".github/workflows/lint.yml"
+    verify: "gh run list --workflow lint.yml --limit 1"
+    doc_claim: "YAML and Markdown linting"
+
+  - id: policy-as-code-tests
+    name: "Policy-as-code test suite in CI"
+    status: verified
+    evidence: "tests/test_repository_controls.py"
+    verify: ".venv/bin/pytest -q"
+    doc_claim: "policy-as-code tests"
+
+  - id: action-sha-pinning
+    name: "GitHub Actions pinned to full commit SHAs"
+    status: verified
+    evidence: ".github/workflows/lint.yml"
+    verify: "grep -rn 'uses:' .github/workflows/"
+    doc_claim: "Actions pinned to full commit SHAs"
+
+  - id: signed-commits
+    name: "GPG-signed commits"
+    status: verified
+    verify: "git log --format='%h %G? %GS' -n 20"
+    doc_claim: "GPG-signed commits"
+
+  - id: codeowners
+    name: "CODEOWNERS with a valid principal"
+    status: verified
+    evidence: ".github/CODEOWNERS"
+    verify: "gh api orgs/jolarca-dev/teams --jq '.[].slug'"
+    doc_claim: "CODEOWNERS review ownership"
+
+  - id: repository-private
+    name: "Repository visibility private"
+    status: verified
+    verify: "gh api repos/jolarca-dev/jolarca-security --jq '.visibility'"
+    doc_claim: "private repository visibility"
+
+  - id: least-privilege-access
+    name: "Least-privilege access (no teams, no outside collaborators, no deploy keys)"
+    status: verified
+    verify: "gh api repos/jolarca-dev/jolarca-security/collaborators"
+    doc_claim: "least-privilege repository access"
+
+  - id: actions-allowlist
+    name: "Actions restricted to an allowlist"
+    status: verified
+    verify: "gh api repos/jolarca-dev/jolarca-security/actions/permissions"
+    doc_claim: "GitHub Actions allowlist"
+
+  - id: dependabot-alerts
+    name: "Dependabot alerts"
+    status: verified
+    verify: "gh api repos/jolarca-dev/jolarca-security/dependabot/alerts"
+    doc_claim: "Dependabot alerts"
+
+  - id: dependabot-version-updates
+    name: "Dependabot version updates"
+    status: verified
+    evidence: ".github/dependabot.yml"
+    verify: "gh api repos/jolarca-dev/jolarca-security/contents/.github/dependabot.yml"
+    doc_claim: "Dependabot version updates"
+
+  - id: private-vulnerability-reporting
+    name: "Private vulnerability reporting (public repository jolarca)"
+    status: compensating
+    compensates_for: "disclosure-email"
+    verify: "gh api repos/jolarca-dev/jolarca/private-vulnerability-reporting"
+    rationale: >-
+      Private vulnerability reporting is unavailable for this repository
+      because it is private and the organisation is on the GitHub Free plan
+      (the endpoint returns HTTP 404). It is available at no cost on public
+      repositories, so it was enabled on jolarca-dev/jolarca and is published
+      as the disclosure channel in SECURITY.md.
+    doc_claim: "GitHub private vulnerability reporting"
+
+  - id: review-gate
+    name: "Pull request review gate with recorded self-review"
+    status: compensating
+    compensates_for: "required-pr-approval"
+    evidence: "CONTRIBUTING.md"
+    rationale: >-
+      The organisation has one member and zero teams. GitHub does not allow an
+      author to approve their own pull request, so a one-approval gate cannot
+      be satisfied. Changes still go through a feature branch, a pull request,
+      CI, an independent automated review and a recorded self-review.
+    remediation: >-
+      Enforce required approvals once a second operator exists; trigger is the
+      first hire or contractor with repository access.
+    doc_claim: "pull request review gate"
+
+  - id: disclosure-email
+    name: "Security disclosure mailbox security@jolarca.com"
+    status: gap
+    doc_claim: "security disclosure mailbox"
+    rationale: >-
+      The domain jolarca.com resolves to parking nameservers
+      (orbit.dns-parking.com / dns.hostinger.com) and has no MX records, so
+      mail to security@jolarca.com cannot be delivered. SECURITY.md named this
+      address as the primary disclosure channel, which means vulnerability
+      reports were being silently discarded.
+    remediation: >-
+      Configure MX records for jolarca.com at the DNS provider and create the
+      security@ mailbox, then re-verify with a DNS MX query and a test message.
+      Until then SECURITY.md directs reporters to GitHub private vulnerability
+      reporting on the public repository.
+    owner_action: true
+
+  - id: branch-protection
+    name: "Branch protection (required checks, no force push, no deletion)"
+    status: gap
+    doc_claim: "branch protection"
+    rationale: >-
+      Unavailable for private repositories on the GitHub Free plan. The API
+      returns HTTP 403 "Upgrade to GitHub Pro or make this repository public to
+      enable this feature." Making the repository public is not acceptable
+      because it holds threat models and incident response procedures.
+    remediation: >-
+      Upgrade the organisation to GitHub Team, then enable branch protection
+      with required status checks gitleaks, yaml-lint, markdown-lint and
+      policy-tests, force-push blocking and deletion blocking.
+    owner_action: true
+    compensating: >-
+      History rewriting is prohibited by policy in CONTRIBUTING.md, commits are
+      GPG-signed so tampering is detectable, and the CI push trigger means
+      every commit to main is still scanned and tested after the fact.
+
+  - id: secret-scanning
+    name: "GitHub secret scanning and push protection"
+    status: gap
+    doc_claim: "GitHub secret scanning and push protection"
+    rationale: >-
+      Requires GitHub Advanced Security, which is not available for private
+      repositories on the GitHub Free plan. The API returns HTTP 404 "Secret
+      scanning is disabled on this repository."
+    remediation: >-
+      Enable with GitHub Advanced Security (Team plan or higher) and turn on
+      push protection and validity checks.
+    owner_action: true
+    compensating: >-
+      gitleaks runs locally on every commit via pre-commit and again over full
+      history in CI on every push and pull request.
+
+  - id: code-scanning
+    name: "CodeQL code scanning"
+    status: gap
+    doc_claim: "CodeQL code scanning"
+    rationale: >-
+      Requires GitHub Advanced Security for private repositories. The API
+      returns HTTP 403 "Advanced Security must be enabled for this repository
+      to use code scanning." CodeQL is only free for public repositories.
+    remediation: >-
+      Enable code scanning with GitHub Advanced Security, or add a self-hosted
+      SAST job to CI once this repository contains application code.
+    owner_action: true
+    compensating: >-
+      The repository contains no application code; the policy-as-code test
+      suite validates structure, ownership, pinning and claim accuracy.
+
+  - id: container-scanning
+    name: "Trivy container and filesystem scanning"
+    status: gap
+    doc_claim: "Trivy container scanning"
+    rationale: >-
+      No containers, images or filesystem artefacts are produced by this
+      repository, so there is nothing for Trivy to scan. It was nevertheless
+      claimed as an active control in README.md and SECURITY.md.
+    remediation: >-
+      Add Trivy to CI if this repository ever produces a container image or
+      ships a filesystem artefact.
+    owner_action: false
+
+  - id: required-pr-approval
+    name: "Required pull request approvals"
+    status: gap
+    doc_claim: "required pull request approvals"
+    rationale: >-
+      Depends on branch protection, which is unavailable on this plan, and on a
+      second reviewer, who does not exist. See review-gate for the compensating
+      control actually in force.
+    remediation: >-
+      Enable required approvals together with branch protection after the plan
+      upgrade, once a second operator can approve.
+    owner_action: true
+
+  - id: org-2fa-enforcement
+    name: "Organisation-wide two-factor authentication enforcement"
+    status: gap
+    doc_claim: "organisation-wide 2FA enforcement"
+    rationale: >-
+      The organisation flag two_factor_requirement_enabled is false. It cannot
+      be changed through the REST API: the field appears in the GET response
+      schema but is not an accepted PATCH body parameter, so the API returns
+      HTTP 200 and silently ignores it. Exposure is limited because the sole
+      member already has two-factor authentication enabled.
+    remediation: >-
+      Enable in the web UI at Organisation settings, then Authentication
+      security, then "Require two-factor authentication for everyone in your
+      organization". Re-verify with
+      "gh api orgs/jolarca-dev --jq '.two_factor_requirement_enabled'".
+    owner_action: true
+
+  - id: member-privilege-hardening
+    name: "Restrict member repository visibility changes and collaborator invites"
+    status: gap
+    doc_claim: "member privilege restrictions"
+    rationale: >-
+      members_can_change_repo_visibility and
+      members_can_invite_outside_collaborators are both true. Neither is an
+      accepted PATCH body parameter on the organisation endpoint, so both are
+      web-UI-only settings. This matters because threat model entry D-01 is
+      precisely an accidental flip of a confidential repository to public.
+    remediation: >-
+      Disable both under Organisation settings, then Member privileges.
+      Re-verify with
+      "gh api orgs/jolarca-dev --jq '{members_can_change_repo_visibility,members_can_invite_outside_collaborators}'".
+    owner_action: true
