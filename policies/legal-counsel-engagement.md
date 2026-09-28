@@ -53,6 +53,7 @@
 ### Questions to Ask
 
 **Experience:**
+
 1. How many data breach incidents have you handled in the past 3 years?
 2. Have you worked with marketplace/e-commerce platforms before?
 3. Are you familiar with GDPR breach notification to VDAI (Lithuanian DPA)?
@@ -78,14 +79,14 @@
 1. **This incident response plan** (incident-response/plan.md)
 2. **Threat model** (threat-models/threat-model.md)
 3. **SECURITY.md** (vulnerability disclosure policy)
-4. **Organization structure** (single-operator, 14 repos)
+4. **Organization structure** (single-operator, 16 repos)
 5. **Data classification** (what data you handle: PII, payment data, etc.)
 
 ---
 
 ## Initial Consultation Email Template
 
-```
+```text
 Subject: Incident Response Legal Counsel — Initial Consultation Request
 
 Dear [Lawyer/Firm Name],
@@ -94,7 +95,7 @@ I am the operator of jolarca-dev, a marketplace platform organization hosted on 
 
 **About jolarca-dev:**
 - Single-operator organization (myself, JourneyOfLife)
-- 14 GitHub repositories (marketplace platform, governance, compliance)
+- 16 GitHub repositories (marketplace platform, governance, compliance)
 - Handles: customer PII, payment data (PCI DSS scope), KYC/AML data
 - Compliance frameworks: SOC 2, GDPR, ISO 27001, PCI DSS
 - Location: Lithuania (EU)
@@ -121,6 +122,11 @@ JourneyOfLife
 Security Officer, jolarca-dev
 security@jolarca.com
 ```
+
+**Before sending:** replace the signature address above. As verified on
+2026-09-28, `jolarca.com` has no MX records, so `security@jolarca.com` cannot
+receive mail — including a reply from counsel. Use a working address until MX
+records and the mailbox are provisioned.
 
 ---
 
@@ -188,3 +194,4 @@ security@jolarca.com
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-09-26 | JourneyOfLife | Initial version |
+| 1.1 | 2026-09-28 | JourneyOfLife | Readiness audit: corrected repository count to 16 and flagged that the signature mailbox is not deliverable |

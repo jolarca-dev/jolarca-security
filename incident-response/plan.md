@@ -13,6 +13,7 @@
 This plan establishes procedures for detecting, responding to, and recovering from security incidents in the jolarca-dev marketplace organization.
 
 **Goals:**
+
 - Minimize impact to confidentiality, integrity, and availability
 - Preserve evidence for forensic analysis
 - Meet regulatory notification requirements (GDPR Art. 33: 72 hours)
@@ -39,26 +40,31 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 
 | Role | Name | Contact | Responsibilities |
 |------|------|---------|------------------|
-| **Incident Commander** | JourneyOfLife | security@jolarca.com | Overall coordination, decision authority |
-| **Technical Lead** | JourneyOfLife | security@jolarca.com | Technical investigation, containment |
-| **Communications** | JourneyOfLife | security@jolarca.com | Stakeholder updates, public comms |
+| **Incident Commander** | JourneyOfLife | <security@jolarca.com> | Overall coordination, decision authority |
+| **Technical Lead** | JourneyOfLife | <security@jolarca.com> | Technical investigation, containment |
+| **Communications** | JourneyOfLife | <security@jolarca.com> | Stakeholder updates, public comms |
 | **Legal Counsel** | ⏳ In Progress | [TBD — see policies/legal-counsel-contact.md](../policies/legal-counsel-contact.md) | Regulatory notification, liability |
 
 ### Implications of Single-Operator Model
 
 **Risks:**
+
 - **Cognitive overload:** One person must simultaneously coordinate, investigate, contain, and communicate
 - **No peer review:** Decisions made under stress without second opinion
 - **Availability risk:** If the operator is unavailable, no one can respond
 - **Burnout risk:** Incident response is high-stress; no one to share the burden
 
 **Mitigations (current):**
-- ✅ Automated detection (Dependabot, Trivy, gitleaks) reduces manual monitoring burden
+
+- ✅ Automated detection reduces manual monitoring burden — Dependabot alerts
+  and gitleaks cover every repository; Trivy and CodeQL cover the public
+  `jolarca` repository only
 - ✅ Runbooks provide step-by-step guidance to reduce decision fatigue
 - ✅ External legal counsel available for regulatory decisions
 - ✅ Post-incident reviews ensure lessons are captured
 
 **Mitigations (planned):**
+
 - ⏳ Enable 2FA to reduce credential compromise risk (D-18)
 - ⏳ Hire second operator to enable role separation (D-10 trigger)
 - ⏳ Establish on-call rotation when team grows
@@ -74,7 +80,8 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 4. **Business growth** — When marketplace goes live and handles real transactions
 
 **Target state (post-hire):**
-```
+
+```text
 Incident Commander: [Person A] — coordinates, makes decisions
 Technical Lead:     [Person B] — investigates, contains
 Communications:     [Person A or C] — updates stakeholders
@@ -100,37 +107,53 @@ Legal Counsel:      [External] — regulatory guidance
 ### Phase 1: Preparation
 
 **Tools:**
+
 - GitHub Security Advisories (vulnerability reporting)
 - Dependabot alerts (dependency vulnerabilities)
 - Trivy scans (container/filesystem vulnerabilities)
 - gitleaks (secret detection in commits)
 - Cloud provider monitoring (when implemented)
 
+**Tool availability is not uniform.** Verified 2026-09-28: Trivy and CodeQL run
+for the public `jolarca` repository only; GitHub secret scanning and push
+protection are unavailable for the 6 private repositories on the GitHub Free
+plan, where `gitleaks` in pre-commit and in CI is the compensating control.
+During an incident, confirm which tools actually cover the affected repository
+before relying on them. Per-repository state is recorded in
+[policies/control-matrix.yml](../policies/control-matrix.yml).
+
 **Documentation:**
+
 - This incident response plan
 - Threat models (threat-models/)
 - Vulnerability register (vulnerability-management/register.md)
 - Security runbooks (runbooks/)
 
 **Training:**
+
 - Annual incident response drill
 - Post-incident reviews
 
 ### Phase 2: Detection & Analysis
 
 **Detection Sources:**
-1. Automated alerts (Dependabot, Trivy, gitleaks)
+
+1. Automated alerts (Dependabot and gitleaks everywhere; Trivy and CodeQL on
+   the public `jolarca` repository only)
 2. User reports (via SECURITY.md disclosure)
 3. Anomalous behavior (logs, metrics)
 4. Third-party notifications
 
 **Triage Process:**
+
 1. **Validate:** Confirm the incident is real
 2. **Classify:** Assign severity (P1–P4)
 3. **Scope:** Determine affected systems/data
-4. **Document:** Create incident record (incident-response/incidents/YYYY-MM-DD-<name>.md)
+4. **Document:** Create incident record at
+   `incident-response/incidents/YYYY-MM-DD-<name>.md`
 
 **Evidence Preservation:**
+
 - Do NOT delete logs or modify affected systems
 - Capture screenshots, log excerpts, network traces
 - Store evidence in secure location (incident-response/evidence/)
@@ -138,12 +161,14 @@ Legal Counsel:      [External] — regulatory guidance
 ### Phase 3: Containment
 
 **Short-term containment:**
+
 - Isolate affected systems (if possible without data loss)
 - Block malicious IPs/users
 - Revoke compromised credentials
 - Disable vulnerable services
 
 **Long-term containment:**
+
 - Apply security patches
 - Implement additional monitoring
 - Restrict access to affected areas
@@ -158,6 +183,7 @@ Legal Counsel:      [External] — regulatory guidance
 - Verify no persistence mechanisms remain
 
 **Verification:**
+
 - Re-scan affected systems
 - Review logs for suspicious activity
 - Confirm eradication before recovery
@@ -170,6 +196,7 @@ Legal Counsel:      [External] — regulatory guidance
 - Verify data integrity
 
 **Communication:**
+
 - Update stakeholders on recovery progress
 - Confirm service restoration
 
@@ -178,12 +205,14 @@ Legal Counsel:      [External] — regulatory guidance
 **Timeline:** Within 5 business days of incident closure
 
 **Post-Incident Review:**
+
 1. What happened? (timeline)
 2. What went well? (response effectiveness)
 3. What could be improved? (gaps, delays)
 4. What actions will prevent recurrence?
 
 **Deliverables:**
+
 - Updated incident record with lessons learned
 - Updated threat models (if new attack vector)
 - Updated runbooks (if procedures need refinement)
@@ -286,3 +315,4 @@ Legal Counsel:      [External] — regulatory guidance
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-09-26 | JourneyOfLife | Initial version |
+| 1.1 | 2026-09-28 | JourneyOfLife | Readiness audit: added a tool availability scope note, corrected the incident record path to avoid inline HTML |

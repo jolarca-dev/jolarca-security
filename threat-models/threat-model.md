@@ -1,7 +1,7 @@
 # Threat Model — jolarca-dev Marketplace
 
 **Effective Date:** 2026-09-26
-**Version:** 1.0
+**Version:** 1.1
 **Owner:** JourneyOfLife (Security Officer)
 **Review Cycle:** Quarterly or after significant change
 **Methodology:** STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
@@ -26,10 +26,21 @@
 12. **jolarca-docs** — Documentation hub (planned)
 13. **jolarca-runbooks** — Operational runbooks (planned)
 14. **jolarca-vendor** — Vendor management (planned)
+15. **jolarca-payments** — Payment processing components (PCI DSS scope)
+16. **.github** — Organization profile and community health files
+
+`jolarca-payments` was missing from this model until the 2026-09-28 audit. It is
+in PCI DSS scope and must be modelled explicitly.
+
+Verified visibility split on 2026-09-28: **10 public, 6 private**
+(`gh api orgs/jolarca-dev --jq '{public_repos,total_private_repos}'`). The
+private repositories are `jolarca-data`, `jolarca-infrastructure`,
+`jolarca-compliance`, `jolarca-legal`, `jolarca-security` and
+`jolarca-observability`.
 
 ### Data Flows
 
-```
+```text
 User → jolarca (platform) → Payment Processor (Stripe)
                            → Identity Provider (when implemented)
                            → Database (PII, payment data)
@@ -59,7 +70,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 
 | ID | Threat | Likelihood | Impact | Mitigation | Status |
 |----|--------|------------|--------|------------|--------|
-| T-01 | Unauthorized code changes | Low | Critical | Branch protection, required reviews | ✅ Active |
+| T-01 | Unauthorized code changes | Low | Critical | Branch protection on `jolarca` only; required reviews enforced nowhere (`required_approving_review_count: 0`) | ⚠️ Partial |
 | T-02 | Infrastructure drift | Medium | High | Drift detection (daily), Terraform-only changes | ✅ Active |
 | T-03 | Dependency poisoning | Medium | High | Dependabot, lockfile pinning, Trivy scans | ✅ Active |
 
@@ -74,7 +85,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 
 | ID | Threat | Likelihood | Impact | Mitigation | Status |
 |----|--------|------------|--------|------------|--------|
-| I-01 | PII data breach via public repos | High | Critical | Data classification, visibility controls (D-01) | ⚠️ 4 repos public |
+| I-01 | PII data breach via public repos | High | Critical | Data classification, visibility controls (D-01) | ⚠️ 10 of 16 repos public |
 | I-02 | Secret leakage in commits | Low | Critical | gitleaks, secret scanning | ✅ Active |
 | I-03 | Database exposure | Low | Critical | Network isolation, access controls | ✅ Active |
 
@@ -91,6 +102,27 @@ User → jolarca (platform) → Payment Processor (Stripe)
 |----|--------|------------|--------|------------|--------|
 | E-01 | Privilege escalation via vulnerability | Medium | Critical | Regular patching, dependency scans | ✅ Active |
 | E-02 | Unauthorized admin access | Low | Critical | Least privilege, 2FA (pending) | ⏳ Pending 2FA |
+
+### Control Status Scope Note
+
+The statuses above describe the **organisation**, and they are not uniform
+across repositories. Verified per repository on 2026-09-28:
+
+- **Branch protection** exists on `jolarca` (public) with required checks
+  including `codeql`, `trivy`, `gitleaks` and `secrets`. It does **not** exist
+  on `jolarca-control`, and it **cannot** exist on the 6 private repositories
+  while the organisation is on the GitHub Free plan (HTTP 403).
+- **Required reviews** are enforced nowhere. `jolarca` reports
+  `required_approving_review_count: 0`, and with a single member no reviewer
+  can approve.
+- **GitHub secret scanning and push protection** are unavailable for private
+  repositories on this plan. `gitleaks` in pre-commit and in CI is the
+  compensating control.
+- **CodeQL and Trivy** run for `jolarca` only.
+
+When reading a ✅ in this document, confirm which repository it applies to.
+Per-repository state for this repository is recorded in
+[policies/control-matrix.yml](../policies/control-matrix.yml).
 
 ---
 
@@ -113,6 +145,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 **Likelihood:** Medium
 **Impact:** Critical
 **Kill chain:**
+
 1. Attacker obtains credentials from breach elsewhere
 2. Attempts login to jolarca admin panel
 3. Gains access (if no 2FA)
@@ -120,6 +153,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 5. Sells on dark web or leaks publicly
 
 **Mitigation:**
+
 - ✅ Strong password policy
 - ⏳ 2FA (D-18 — pending)
 - ✅ Anomaly detection (when implemented)
@@ -131,12 +165,14 @@ User → jolarca (platform) → Payment Processor (Stripe)
 **Likelihood:** Medium
 **Impact:** High
 **Kill chain:**
+
 1. Attacker publishes malicious package
 2. Developer adds dependency (or transitive dependency)
 3. Malicious code executes in CI/CD or production
 4. Data exfiltration or backdoor installation
 
 **Mitigation:**
+
 - ✅ Dependabot alerts
 - ✅ Trivy scans
 - ✅ Lockfile pinning
@@ -149,6 +185,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 **Likelihood:** High (currently)
 **Impact:** Critical
 **Kill chain:**
+
 1. Repo classified confidential but set to public (D-01)
 2. Attacker discovers repo via GitHub search
 3. Downloads RoPA, vendor assessments, contracts
@@ -156,6 +193,7 @@ User → jolarca (platform) → Payment Processor (Stripe)
 5. GDPR investigation, fines, reputational damage
 
 **Mitigation:**
+
 - ⚠️ Flip repos to private (D-01 — pending)
 - ✅ Data classification in YAML
 - ✅ Drift detection for visibility changes
@@ -191,11 +229,13 @@ User → jolarca (platform) → Payment Processor (Stripe)
 ## 7. Review & Updates
 
 **Quarterly review:**
+
 - Update threat catalog with new threats
 - Re-assess likelihood/impact based on changes
 - Update mitigation status
 
 **After significant change:**
+
 - New component added
 - Architecture change
 - Security incident
@@ -207,3 +247,4 @@ User → jolarca (platform) → Payment Processor (Stripe)
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-09-26 | JourneyOfLife | Initial version |
+| 1.1 | 2026-09-28 | JourneyOfLife | Readiness audit: added `jolarca-payments` and `.github` to the component list, corrected public repository count from 4 to 10, corrected T-01 to reflect that required reviews are enforced nowhere, added a control status scope note |
