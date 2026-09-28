@@ -39,12 +39,14 @@
 ### Reviewing Existing Policies
 
 **Annual review:**
+
 - Is the policy still relevant?
 - Are there any gaps or ambiguities?
 - Has the environment changed (new systems, new regulations)?
 - Are there any lessons learned from incidents?
 
 **Post-incident review:**
+
 - Did the policy work as intended?
 - Were there any gaps that contributed to the incident?
 - Should the policy be updated?
