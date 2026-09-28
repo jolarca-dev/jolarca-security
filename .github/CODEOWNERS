@@ -1,8 +1,14 @@
-# CODEOWNERS — default owners for all files in the repository.
-# Replace team slugs with actual GitHub team slugs before enabling.
+# CODEOWNERS — default reviewers for every path in this repository.
+#
+# Audit finding F-04: this file previously assigned ownership to
+# @jolarca-dev/security-team and @jolarca-dev/compliance. The organisation has
+# zero teams — `gh api orgs/jolarca-dev/teams` returns [] — so both principals
+# were invalid. GitHub silently ignores unknown owners, which means this file
+# required no review from anyone and provided no control whatsoever.
+#
+# Ownership now points at the single organisation owner. When teams are created,
+# replace the individual below with the team slug and re-verify with:
+#   gh api repos/jolarca-dev/jolarca-security/contents/.github/CODEOWNERS
+#   gh api orgs/jolarca-dev/teams --jq '.[].slug'
 
-# Default owners for everything
-*       @jolarca-dev/security-team
-
-# Markdown governance documents require compliance sign-off
-*.md    @jolarca-dev/security-team @jolarca-dev/compliance
+*       @JourneyOfLife
