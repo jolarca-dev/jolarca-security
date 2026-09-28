@@ -1,0 +1,60 @@
+Copyright (c) 2026 JolArca / jolarca-dev. All Rights Reserved.
+
+NOTICE — PROPRIETARY AND CONFIDENTIAL
+
+This repository (jolarca-security) and all of its contents, including without
+limitation the security policies, threat models, incident response plans,
+runbooks, vulnerability registers, control matrices and audit reports contained
+herein (collectively, the "Materials"), are the proprietary and confidential
+information of JolArca (the "Company").
+
+1. NO LICENCE GRANTED
+
+   No licence or right to use, reproduce, copy, modify, merge, publish,
+   distribute, sublicense, sell, reverse engineer, or create derivative works
+   from the Materials is granted, whether by implication, estoppel, exhaustion
+   or otherwise. This repository is NOT open source software. It is NOT licensed
+   under the GNU Affero General Public License (AGPL), the GNU General Public
+   License (GPL), the Lesser GPL, the MIT Licence, the Apache Licence, or any
+   other permissive or copyleft licence.
+
+2. PERMITTED USE
+
+   Access to and use of the Materials is restricted to authorised personnel of
+   the Company, and to third parties (such as auditors, assessors, legal
+   counsel or incident response contractors) who are under a written
+   confidentiality obligation to the Company and have been granted explicit
+   written authorisation.
+
+3. CONFIDENTIALITY
+
+   The Materials describe the Company's security architecture, controls,
+   detection capabilities, incident response procedures and known weaknesses.
+   Unauthorised disclosure may reduce the effectiveness of those controls and
+   is prohibited. Handle, store and transmit the Materials in accordance with
+   the data classification and handling requirements defined in this
+   repository.
+
+4. SECURITY RESEARCH AND DISCLOSURE
+
+   Nothing in this notice restricts the good-faith reporting of security
+   vulnerabilities through the channel described in SECURITY.md, and the safe
+   harbour terms stated there continue to apply.
+
+5. REGULATORY CONTEXT
+
+   The Materials support the Company's obligations under the EU General Data
+   Protection Regulation (including Articles 32 and 33), PCI DSS (including
+   Requirements 6 and 12), SOC 2 (including the CC7 criteria) and ISO/IEC
+   27001 (including Annex A controls A.5.24 to A.5.28). They may be disclosed
+   to assessors, supervisory authorities or law enforcement where required by
+   applicable law.
+
+6. NO WARRANTY
+
+   The Materials are provided for internal governance purposes. They are
+   maintained on a best-efforts basis and are subject to periodic review as
+   recorded in the document history of each file.
+
+For licence enquiries, or to request authorised access, contact the Security
+Officer as listed in SECURITY.md.
