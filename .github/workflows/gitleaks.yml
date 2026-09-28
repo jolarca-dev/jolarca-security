@@ -1,6 +1,15 @@
-# Secret scanning with gitleaks — runs on every push and PR to main.
-# Requires GITLEAKS_LICENSE for organization repos (free at gitleaks.io).
-# Alternative: use GitHub's built-in push protection (free, no license needed).
+# Secret scanning — runs on every push and pull request to main.
+#
+# Design note (audit finding F-01):
+#   This workflow previously used gitleaks/gitleaks-action@e0c47f4. That failed
+#   on every run for two independent reasons:
+#     1. GitHub Actions rejects abbreviated commit SHAs, so the ref could never
+#        resolve ("the provided ref `e0c47f4` is the shortened version of a
+#        commit SHA, which is not supported").
+#     2. gitleaks-action v2 requires a GITLEAKS_LICENSE secret for
+#        organization-owned repositories, and none is configured.
+#   The gitleaks CLI itself is open source and needs no license, so it is now
+#   installed directly from a checksum-verified release asset.
 
 name: gitleaks
 
@@ -10,21 +19,39 @@ on:
   pull_request:
     branches: [main]
 
+# Least privilege: the scanner only needs to read repository contents.
 permissions:
   contents: read
 
 jobs:
   scan:
-    name: gitleaks
+    name: gitleaks (full history)
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - name: Checkout with full history
+        # Pinned to the full commit SHA of actions/checkout v6 — required by the
+        # repository's action-pinning policy and enforced by tests/.
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
 
-      - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@e0c47f4
+      - name: Install checksum-verified gitleaks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+          GITLEAKS_VERSION: "8.30.1"
+          # sha256 published by the gitleaks v8.30.1 release. Verified here so a
+          # tampered or substituted asset fails the build instead of scanning.
+          GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+        run: |
+          set -euo pipefail
+          asset="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${asset}"
+          curl -fsSL "$url" -o "/tmp/${asset}"
+          printf '%s  /tmp/%s\n' "$GITLEAKS_SHA256" "$asset" | sha256sum -c -
+          tar -xzf "/tmp/${asset}" -C /tmp gitleaks
+          sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Scan full git history
+        # --redact prevents detected secrets from being written into CI logs.
+        # --log-opts=--all covers every ref, not just the checked-out branch.
+        run: gitleaks git . --redact --exit-code 1 --log-opts="--all" --verbose
