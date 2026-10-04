@@ -14,8 +14,11 @@ permissions:
   contents: read
 
 jobs:
-  scan:
-    name: gitleaks
+  # The job key IS the status-check context: GitHub names a check after `name:` when a job has one and
+  # falls back to the key otherwise. jolarca-control/repos/jolarca-security.yml declares required contexts
+  # (D-47), so the names here must be stable identifiers, not prose -- a reworded title would silently
+  # un-required a check. `secret-scan` matches the key used by jolarca-identity and jolarca-hermes-agents.
+  secret-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

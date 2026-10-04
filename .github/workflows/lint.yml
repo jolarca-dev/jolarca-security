@@ -12,7 +12,6 @@ permissions:
 
 jobs:
   yaml-lint:
-    name: YAML syntax validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +23,6 @@ jobs:
           yamllint -d relaxed --no-warnings .
 
   markdown-lint:
-    name: Markdown lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
