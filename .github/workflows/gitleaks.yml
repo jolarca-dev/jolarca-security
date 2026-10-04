@@ -24,8 +24,11 @@ permissions:
   contents: read
 
 jobs:
-  scan:
-    name: gitleaks (full history)
+  # Job keys ARE the status-check contexts: GitHub names a check after `name:` when a job has
+  # one and falls back to the key otherwise. jolarca-control/repos/jolarca-security.yml declares
+  # these keys as required contexts (drift register D-47), so a reworded prose title would
+  # silently un-required a check. Prose titles belong in the job key's comment, not in `name:`.
+  secret-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout with full history

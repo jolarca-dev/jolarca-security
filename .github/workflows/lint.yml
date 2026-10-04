@@ -22,8 +22,11 @@ permissions:
   contents: read
 
 jobs:
+  # Job keys ARE the status-check contexts: GitHub names a check after `name:` when a job has
+  # one and falls back to the key otherwise. jolarca-control/repos/jolarca-security.yml declares
+  # these keys as required contexts (drift register D-47), so a reworded prose title would
+  # silently un-required a check. Prose titles belong in the job key's comment, not in `name:`.
   yaml-lint:
-    name: YAML syntax validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -41,7 +44,6 @@ jobs:
         run: /tmp/lintenv/bin/yamllint -d relaxed --no-warnings .
 
   markdown-lint:
-    name: Markdown lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -55,7 +57,6 @@ jobs:
           globs: '**/*.md'
 
   policy-tests:
-    name: Policy-as-code tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
