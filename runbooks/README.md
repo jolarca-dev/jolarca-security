@@ -30,6 +30,7 @@ Step-by-step procedures for common security tasks and incident response scenario
 6. ⏳ **[Incident Drill](incident-drill.md)** — Conduct quarterly incident response drill *(planned Q1 2027)*
 
 **Legend:**
+
 - ✅ Active — Ready for use
 - ⏳ Planned — Not yet created, scheduled for Q1 2027
 

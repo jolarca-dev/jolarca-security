@@ -36,6 +36,7 @@
 - **P3/P4 incidents:** Next business day
 
 **Services include:**
+
 - Regulatory notification guidance (GDPR, PCI DSS)
 - Breach containment strategy
 - Law enforcement liaison (if needed)
@@ -129,6 +130,7 @@
 **Next review date:** [TBD — 1 year from engagement]
 
 **Review checklist:**
+
 - [ ] Response time met expectations?
 - [ ] Quality of advice satisfactory?
 - [ ] Cost within budget?

@@ -1,0 +1,48 @@
+# Dependabot configuration — audit finding F-11.
+#
+# This repository previously had no dependabot.yml, while README.md and
+# SECURITY.md both claimed Dependabot coverage. Version updates are now
+# configured for the two ecosystems this repository actually uses:
+# GitHub Actions (the workflows) and pip (pyproject.toml).
+#
+# Pinned action SHAs mean Dependabot is the intended mechanism for keeping
+# them current; it opens a PR rather than silently mutating a ref.
+
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
+    groups:
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "python"
+    groups:
+      python-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"

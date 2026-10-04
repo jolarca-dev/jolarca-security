@@ -1,5 +1,19 @@
 [project]
 name = "jolarca-security"
 version = "0.1.0"
+description = "Security policies, incident response procedures, threat models and compliance evidence for the jolarca-dev organisation"
 requires-python = ">=3.12"
 dependencies = []
+
+[project.optional-dependencies]
+# Development and CI tooling only. This repository ships no runtime package.
+dev = [
+    "pre-commit>=4.6",
+    "pytest>=8.0",
+    "pyyaml>=6.0",
+    "yamllint>=1.35",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
