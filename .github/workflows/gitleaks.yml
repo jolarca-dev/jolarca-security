@@ -32,8 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout with full history
-        # Pinned to the full commit SHA of actions/checkout v6 — required by the
-        # repository's action-pinning policy and enforced by tests/.
+        # Pinned to a full commit SHA, as the action-pinning policy requires; tests/
+        # enforces the 40-character form only. The version lives in the label below,
+        # which dependabot updates -- it must not be repeated in prose.
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
