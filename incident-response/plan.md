@@ -40,9 +40,9 @@ This plan establishes procedures for detecting, responding to, and recovering fr
 
 | Role | Name | Contact | Responsibilities |
 |------|------|---------|------------------|
-| **Incident Commander** | JourneyOfLife | <security@jolarca.com> | Overall coordination, decision authority |
-| **Technical Lead** | JourneyOfLife | <security@jolarca.com> | Technical investigation, containment |
-| **Communications** | JourneyOfLife | <security@jolarca.com> | Stakeholder updates, public comms |
+| **Incident Commander** | JourneyOfLife | <journey4oflife+jolarca.security@gmail.com> | Overall coordination, decision authority |
+| **Technical Lead** | JourneyOfLife | <journey4oflife+jolarca.security@gmail.com> | Technical investigation, containment |
+| **Communications** | JourneyOfLife | <journey4oflife+jolarca.security@gmail.com> | Stakeholder updates, public comms |
 | **Legal Counsel** | ⏳ In Progress | [TBD — see policies/legal-counsel-contact.md](../policies/legal-counsel-contact.md) | Regulatory notification, liability |
 
 ### Implications of Single-Operator Model

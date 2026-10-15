@@ -142,20 +142,30 @@ controls:
     doc_claim: "pull request review gate"
 
   - id: disclosure-email
-    name: "Security disclosure mailbox security@jolarca.com"
+    name: "Security disclosure contact (interim personal alias, no domain mailbox)"
     status: gap
     doc_claim: "security disclosure mailbox"
     rationale: >-
-      The domain jolarca.com resolves to parking nameservers
-      (orbit.dns-parking.com / dns.hostinger.com) and has no MX records, so
-      mail to security@jolarca.com cannot be delivered. SECURITY.md named this
-      address as the primary disclosure channel, which means vulnerability
-      reports were being silently discarded.
+      No deliverable organisational mailbox exists. jolarca.com resolves to
+      parking nameservers (orbit.dns-parking.com / dns.hostinger.com) and
+      publishes no MX and no DMARC record; jolarca.dev publishes neither. The
+      address published here until 2026-10-15, security@jolarca.com, therefore
+      silently discarded every report. Since 2026-10-15 the published contact is
+      the plus-alias journey4oflife+jolarca.security@gmail.com. This stays a gap
+      rather than becoming compensating because no inbound test message has been
+      retained: delivery is assumed from how Gmail handles plus-addresses, not
+      observed, and assuming a contact works is the error that produced F-05. A
+      plus-alias on one personal mailbox also cannot provide independent intake
+      or separate retention.
     remediation: >-
-      Configure MX records for jolarca.com at the DNS provider and create the
-      security@ mailbox, then re-verify with a DNS MX query and a test message.
+      Publish MX, DMARC and SPF/DKIM for jolarca.com at the DNS provider (the
+      domain is parked today) and create security@ / privacy@ role mailboxes.
+      Send one test message per address and retain the headers as evidence.
+      Repoint SECURITY.md, README.md and this matrix in the same change, then move
+      this control to verified with the MX query and the test message as evidence.
       Until then SECURITY.md directs reporters to GitHub private vulnerability
-      reporting on the public repository.
+      reporting on the public repository and names the interim alias.
+    tracked_by: "jolarca-control D-59 and contact-alias-interim (expires 2027-01-13)"
     owner_action: true
 
   - id: branch-protection
