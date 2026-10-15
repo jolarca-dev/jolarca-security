@@ -70,12 +70,25 @@ repository [jolarca-dev/jolarca](https://github.com/jolarca-dev/jolarca/security
 This channel was verified enabled on 2026-09-28 and reaches the Security Officer
 directly without exposing the report publicly.
 
-**Email — currently NOT deliverable:** `security@jolarca.com` is published as a
-contact address across this repository, but the domain `jolarca.com` resolves to
-parking nameservers (`orbit.dns-parking.com`, `dns.hostinger.com`) and has **no
-MX records**. Mail sent to that address is discarded, so it must not be relied
-upon until MX records and the mailbox are provisioned. Until then, use the
-GitHub channel above.
+**Email — interim, delivery not yet proven:**
+`journey4oflife+jolarca.security@gmail.com` for vulnerability reports and `journey4oflife+jolarca.privacy@gmail.com` for privacy and
+data-subject requests. These are plus-aliases on one personal mailbox: they route
+and attribute mail, they do not separate the security function from anybody else,
+and each discloses the base mailbox name. **No inbound test message has been
+retained**, so do not treat either as a verified channel — assuming a contact
+works without observing a delivery is exactly what left the previous address dead
+for 17 days (F-05).
+
+`security@jolarca.com`, published here until 2026-10-15, cannot receive mail:
+`jolarca.com` resolves to parking nameservers (`orbit.dns-parking.com`,
+`dns.hostinger.com`) and publishes no MX and no DMARC record; `jolarca.dev`
+publishes neither. Do not reinstate it. Tracked as D-59 in
+[jolarca-control](https://github.com/jolarca-dev/jolarca-control/blob/main/docs/drift-findings.md).
+The exit condition is MX + DMARC + SPF/DKIM on `jolarca.com` with real role
+mailboxes, one proven test message per address, headers retained as evidence.
+
+Prefer the GitHub channel above where it is available: it keeps the report
+private and does not depend on mailbox configuration.
 
 **Why private vulnerability reporting is not available on this repository:** the
 feature is free for public repositories only. For a private repository it
@@ -166,7 +179,7 @@ target repository first.
 **Report vulnerabilities:** GitHub private vulnerability reporting on
 [jolarca-dev/jolarca](https://github.com/jolarca-dev/jolarca/security/advisories/new)
 — see [Reporting a Vulnerability](#reporting-a-vulnerability). The published
-address `security@jolarca.com` is not currently deliverable.
+address `journey4oflife+jolarca.security@gmail.com` is an interim alias whose delivery is not yet proven.
 
 ---
 

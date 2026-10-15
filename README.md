@@ -91,7 +91,7 @@ Markers: ✅ verified · ⚠️ compensating control · ❌ known gap.
 | ✅ **Dependabot version updates** | `.github/dependabot.yml` covers `github-actions` and `pip` |
 | ⚠️ **GitHub private vulnerability reporting** | unavailable for this private repository on the Free plan; enabled on the public `jolarca` repository and published as the disclosure channel |
 | ⚠️ **pull request review gate** | with one member, self-approval is impossible; feature branch, pull request, CI, independent automated review and a recorded self-review are used instead |
-| ❌ **security disclosure mailbox** | `security@jolarca.com` cannot receive mail — `jolarca.com` has no MX records |
+| ❌ **security disclosure mailbox** | no organisational mailbox is deliverable — `jolarca.com` publishes no MX/DMARC and `jolarca.dev` publishes neither; since 2026-10-15 the published contact is the interim alias <journey4oflife+jolarca.security@gmail.com> and its delivery is unproven |
 | ❌ **branch protection** | HTTP 403: unavailable for private repositories on the GitHub Free plan |
 | ❌ **GitHub secret scanning and push protection** | requires GitHub Advanced Security |
 | ❌ **CodeQL code scanning** | requires GitHub Advanced Security for private repositories |
@@ -151,9 +151,9 @@ verified per repository before it is published.
 
 ## Contact
 
-**Security Team:** <security@jolarca.com>
+**Security Team:** <journey4oflife+jolarca.security@gmail.com>
 **Security Officer:** JourneyOfLife
-**Incident Hotline:** <security@jolarca.com> (P1/P2 incidents)
+**Incident Hotline:** <journey4oflife+jolarca.security@gmail.com> (P1/P2 incidents) — interim alias, delivery unproven
 
 ---
 

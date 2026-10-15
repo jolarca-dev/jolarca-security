@@ -120,13 +120,15 @@ Thank you for your time. I look forward to your response.
 Best regards,
 JourneyOfLife
 Security Officer, jolarca-dev
-security@jolarca.com
+journey4oflife+jolarca.security@gmail.com
 ```
 
-**Before sending:** replace the signature address above. As verified on
-2026-09-28, `jolarca.com` has no MX records, so `security@jolarca.com` cannot
-receive mail — including a reply from counsel. Use a working address until MX
-records and the mailbox are provisioned.
+**Before sending:** the signature above is now an interim plus-alias on a personal
+mailbox. The address formerly used here, `security@jolarca.com`, cannot receive
+mail — `jolarca.com` publishes no MX record (re-verified 2026-10-15) — so a reply
+from counsel addressed there would have been lost. Use an address you can
+actually read, and disclose that no domain mailbox exists yet (D-59): an
+engagement letter with an unanswerable signature is not a contact of record.
 
 ---
 
